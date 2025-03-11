@@ -1,0 +1,171 @@
+/* DARK GUNMETAL */
+.bg-dark-gunmetal{
+    background-color: #1D1D2C !important;
+}
+/* END DARK GUNMETAL */
+
+/* DARK CYAN */
+.bg-dark-cyan{
+    background-color: #2C8780 !important;
+}
+/* END DARK CYAN */
+
+/* OPAL */
+.bg-opal{
+    background-color: #B2CAC9 !important;
+}
+/* END OPAL */
+
+/* COOL MINT */
+.bg-cool-mint{
+    background-color: #E8F2F5 !important;
+}
+/* END COOL MINT */
+
+/* TURQUOISE */
+.bg-turquoise{
+    background-color: #72F1DC !important;
+}
+/* END TURQUOISE */
+
+/* Mint */
+.bg-mint{
+    background-color: #09BC8A !important;
+}
+.text-mint{
+    color: #09BC8A !important;
+}
+.btn-mint {
+    color: #fff !important;
+    background-color: #09BC8A !important;
+    border-color: #09BC8A !important;
+}
+.btn-mint:focus {
+    color: #fff !important;
+    background-color: #088f69 !important;
+    border-color: #088f69 !important;
+}
+.btn-mint:hover {
+    color: #fff !important;
+    background-color: #088f69 !important;
+    border-color: #088f69 !important;
+}
+
+
+
+/* Midnight Green */
+.bg-midnight-green{
+    background-color: #004346 !important;
+}
+.text-midnight-green{
+    color: #004346 !important;
+}
+.btn-midnight-green {
+    color: #fff !important;
+    background-color: #004346 !important;
+    border-color: #004346 !important;
+}
+.btn-midnight-green:focus {
+    color: #fff !important;
+    background-color: #012f31 !important;
+    border-color: #012f31 !important;
+}
+.btn-midnight-green:hover {
+    color: #fff !important;
+    background-color: #012f31 !important;
+    border-color: #012f31 !important;
+}
+
+/* Prussian Blue */
+.bg-prussian-blue{
+    background-color: #172A3A !important;
+}
+.text-prussian-blue{
+    color: #172A3A !important;
+}
+.btn-prussian-blue {
+    color: #fff !important;
+    background-color: #172A3A !important;
+    border-color: #172A3A !important;
+}
+.btn-prussian-blue:focus {
+    color: #fff !important;
+    background-color: #0f1c27 !important;
+    border-color: #0f1c27 !important;
+}
+.btn-prussian-blue:hover {
+    color: #fff !important;
+    background-color: #0f1c27 !important;
+    border-color: #0f1c27 !important;
+}
+
+/* Munsell Blue */
+.bg-munsell-blue{
+    background-color: #508991 !important;
+}
+.text-munsell-blue{
+    color: #508991 !important;
+}
+.btn-munsell-blue {
+    color: #fff !important;
+    background-color: #508991 !important;
+    border-color: #508991 !important;
+}
+.btn-munsell-blue:focus {
+    color: #fff !important;
+    background-color: #396166 !important;
+    border-color: #396166 !important;
+}
+.btn-munsell-blue:hover {
+    color: #fff !important;
+    background-color: #396166 !important;
+    border-color: #396166 !important;
+}
+
+/* Azure */
+.bg-azure{
+    background-color: #E2F0F3 !important;
+}
+.text-azure{
+    color: #E2F0F3 !important;
+}
+.btn-azure {
+    color: #33363D !important;
+    background-color: #E2F0F3 !important;
+    border-color: #E2F0F3 !important;
+}
+.btn-azure:focus {
+    color: #33363D !important;
+    background-color: #a9b1b3 !important;
+    border-color: #a9b1b3 !important;
+}
+.btn-azure:hover {
+    color: #33363D !important;
+    background-color: #a9b1b3 !important;
+    border-color: #a9b1b3 !important;
+}
+
+/* Amaranth */
+.bg-amaranth{
+    background: #E2294F !important;
+}
+
+.text-amaranth{
+    color: #E2294F !important;
+}
+
+.btn-amaranth {
+    color: #fff !important;
+    background-color: #E2294F !important;
+    border-color: #E2294F !important;
+}
+
+.btn-amaranth:hover {
+    color: #fff !important;
+    background-color: #C92546 !important;
+    border-color: #C92546 !important;
+}
+
+.bg-orange{
+    background: #e26d29 !important;
+}
