@@ -17,13 +17,6 @@ class ApiController extends Controller
         return $request->user();
     }
 
-
-
-    public function example(Request $request)
-    {
-        return response()->json(['message' => 'This is an example API endpoint.']);
-    }
-
     public function getCrewList(Request $request){
         $crewList = DB::table('crew_profile_tbl')
         ->join('crew_rank_tbl', 'crew_profile_tbl.rank','=','crew_rank_tbl.code')

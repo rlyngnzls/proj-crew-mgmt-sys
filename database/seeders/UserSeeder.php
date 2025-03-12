@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'username' => 'test',
             'name' => 'Test User',
             'email' => 'test@example.com',
-            'user_type' => 'System Administrator',
+            'user_type' => 'System Admin',
             'password' => Hash::make('password'), // Or any password you prefer
         ]);
     }

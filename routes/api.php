@@ -32,7 +32,6 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/user', [ApiController::class, 'user']);
-    Route::get('/example', [ApiController::class, 'example']);
 
     Route::get('/crew/list', [ApiController::class, 'getCrewList']);
     Route::post('/insert/crew/data', [ApiController::class, 'submitCrewData']);
