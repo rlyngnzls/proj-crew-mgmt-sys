@@ -116,7 +116,7 @@
                                                                 <div class="row">
                                                                     <div class="col-md-8">
                                                                         <b-form-input type="search" placeholder="Search Code / Rank Name / Alias" aria-label="Search"
-                                                                        v-model="search_main_docu"></b-form-input>
+                                                                        v-model="search_main_ranks"></b-form-input>
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         <button class="btn btn-mint w-100" @click="createMainRankTrigger = true">
@@ -185,7 +185,102 @@
                                         </div>
                                     </b-tab>
                                     <b-tab title="USERS">
-                                        <b-card-text>Tab contents 3</b-card-text>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-2 pe-1">
+                                                                        <b-form-select v-model="perPage" :options="$page_options" required class="form-control"></b-form-select>
+                                                                    </div>
+                                                                    <div class="col-md-10 d-flex justify-content-start align-items-center ps-1">
+                                                                        <span class="text-dark">entries per page</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-8">
+                                                                        <b-form-input type="search" placeholder="Search Crew ID / Username / Name / Email" aria-label="Search"
+                                                                        v-model="search_main_users"></b-form-input>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <button class="btn btn-mint w-100" @click="createMainUsersTrigger = true">
+                                                                            <i class="fa-duotone fa-solid fa-square-plus fa-fw me-1"></i> Register User
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <div class="col-md-12">
+                                                                <b-table :bordered=true :hover=true :items="searchMainUsers" :fields="fields_users" responsive show-empty
+                                                                    :per-page="perPage" :current-page="currentPage" :busy="loading_table" id="tableMainUsers">
+                                                                    <template #empty="scope">
+                                                                        <div class="container-fluid bg-light p-3 text-center border border-lg rounded">
+                                                                            <h5 class="text-muted pt-2 pb-1">No Records Found.</h5>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #table-busy>
+                                                                        <div class="container-fluid bg-light p-3 text-center border border-lg rounded">
+                                                                            <i class="fa-duotone fa-spinner fa-spin-pulse fa-lg"></i>
+                                                                            <h5 class="text-muted pt-2 pb-1">Loading...</h5>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(crew_id)="row">
+                                                                        <div class="d-flex justify-content-center align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.crew_id }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(username)="row">
+                                                                        <div class="d-flex justify-content-start align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.username }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(name)="row">
+                                                                        <div class="d-flex justify-content-start align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.name }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(email)="row">
+                                                                        <div class="d-flex justify-content-start align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.email }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(user_type)="row">
+                                                                        <div class="d-flex justify-content-center align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.user_type }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(created_at)="row">
+                                                                        <div class="d-flex justify-content-center align-items-center h-100 my-2">
+                                                                            <span class="text-wrap" style="font-size: 13px;">{{row.item.created_at }}</span>
+                                                                        </div>
+                                                                    </template>
+                                                                    <template #cell(actions)="row">
+                                                                        <div class="text-center">
+                                                                            <button class="btn btn-sm btn-primary" @click="editMainUsers(row.item)"><i class="fa-duotone fa-solid fa-pen-to-square fa-fw"></i></button>
+                                                                            <button class="btn btn-sm btn-amaranth" @click="removeMainUsers(row.item)"><i class="fa-duotone fa-solid fa-trash fa-fw"></i></button>
+                                                                        </div>
+                                                                    </template>
+                                                                </b-table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 d-flex justify-content-start align-items-center h-100">
+                                                                <b-pagination v-model="currentPage" :total-rows="items_users.length" :per-page="perPage"
+                                                                    aria-controls="tableMainUsers" size="sm"></b-pagination>
+                                                            </div>
+                                                            <div class="col-md-6 d-flex justify-content-end align-items-center h-100">
+                                                                <span class="text-uppercase">{{ items_users.length }} item(s).</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </b-tab>
                                 </b-tabs>
                             </div>
@@ -340,6 +435,7 @@ import moment from 'moment';
         mounted() {
             this.getMainDocuments();
             this.getMainRanks();
+            this.getMainUsers();
             this.info = JSON.parse(this.user_data);
         },
         data() {
@@ -376,6 +472,17 @@ import moment from 'moment';
                     { key: 'actions', label: 'Actions', thStyle: { fontSize: '13px' }, thClass: 'text-center text-uppercase'},
                 ],
                 search_main_ranks: null,
+                items_users: [],
+                fields_users: [
+                    { key: 'crew_id', label: 'Crew ID', thStyle:  { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'username', label: 'Username', thStyle: { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'name', label: 'Name', thStyle: { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'email', label: 'Email', thStyle: { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'user_type', label: 'User Type', thStyle: { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'created_at', label: 'Date Created', thStyle: { fontSize: '13px' }, sortable: true, thClass: 'text-center text-uppercase'},
+                    { key: 'actions', label: 'Actions', thStyle: { fontSize: '13px' }, thClass: 'text-center text-uppercase'},
+                ],
+                search_main_users: null,
                 perPage: 5,
                 currentPage: 1,
                 loading_table: false,
@@ -392,6 +499,16 @@ import moment from 'moment';
                 main_rank_code: null,
                 main_rank_name: null,
                 main_rank_id: null,
+
+                editMainUsersTrigger: false,
+                createMainUsersTrigger: false,
+                main_users_crew_id: null,
+                main_users_username: null,
+                main_users_name: null,
+                main_users_email: null,
+                main_users_password: null,
+                main_users_type: null,
+                main_users_id: null,
 
                 };
         },
@@ -411,6 +528,15 @@ import moment from 'moment';
                     item.rank_name.toLowerCase().includes(this.search_main_ranks.toLowerCase()) ||
                     item.alias.toLowerCase().includes(this.search_main_ranks.toLowerCase()))
                 : this.items_ranks;
+            },
+            searchMainUsers() {
+            return this.search_main_users
+                ? this.items_users.filter(item =>
+                    item.crew_id.toLowerCase().includes(this.search_main_users.toLowerCase()) ||
+                    item.username.toLowerCase().includes(this.search_main_users.toLowerCase()) ||
+                    item.name.toLowerCase().includes(this.search_main_users.toLowerCase()) ||
+                    item.email.toLowerCase().includes(this.search_main_users.toLowerCase()))
+                : this.items_users;
             },
 
         },
@@ -536,6 +662,78 @@ import moment from 'moment';
                 })
             },
 
+            getMainUsers(){
+                axios.get('/get/setup/users')
+                .then((response) => {
+                    this.items_users = response.data;
+                    console.log(response.data);
+                })
+            },
+
+            editMainUsers(data){
+                this.editMainUsersTrigger = true;
+                this.main_users_crew_id = data.crew_id;
+                this.main_users_username = data.username;
+                this.main_users_name = data.name;
+                this.main_users_email = data.email;
+                this.main_users_password = data.password;
+                this.main_users_type = data.user_type;
+                this.main_users_id = data.id;
+            },
+
+            saveMainUsers(){
+                axios.post('/save/setup/users/data', {
+                    main_users_crew_id : this.main_users_crew_id,
+                    main_users_username : this.main_users_username,
+                    main_users_name : this.main_users_name,
+                    main_users_email : this.main_users_email,
+                    main_users_password : this.main_users_password,
+                    main_users_type : this.main_users_type,
+                    main_users_id : this.main_users_id,
+                }).then((response) => {
+                    this.getMainUsers();
+                    this.closeModal();
+                    this.Toast.fire({
+                        icon: 'success',
+                        title: 'User Updated!',
+                        html: 'User details updated successfully.',
+                    });
+                })
+            },
+
+            createMainUsers(){
+                axios.post('/create/setup/user/data', {
+                    main_users_crew_id : this.main_users_crew_id,
+                    main_users_username : this.main_users_username,
+                    main_users_name : this.main_users_name,
+                    main_users_email : this.main_users_email,
+                    main_users_password : this.main_users_password,
+                    main_users_type : this.main_users_type,
+                    main_users_id : this.main_users_id,
+                }).then((response) => {
+                    this.getMainUsers();
+                    this.closeModal();
+                    this.Toast.fire({
+                        icon: 'success',
+                        title: 'Users Created!',
+                        html: 'Users details created successfully.',
+                    });
+                })
+            },
+
+            removeMainUsers(data){
+                axios.post('/remove/setup/users/data', {
+                    main_users_id : data.id
+                }).then((response) => {
+                    this.getMainUsers();
+                    this.Toast.fire({
+                        icon: 'success',
+                        title: 'Users Removed!',
+                        html: 'Users details removed successfully.',
+                    });
+                })
+            },
+
             closeModal(){
                 this.editMainDocuTrigger = false;
                 this.createMainDocuTrigger = false;
@@ -549,6 +747,16 @@ import moment from 'moment';
                 this.main_rank_name = null;
                 this.main_rank_alias = null;
                 this.main_rank_id = null;
+
+                this.editMainUsersTrigger = false;
+                this.createMainUsersTrigger = false;
+                this.main_users_crew_id = null;
+                this.main_users_username = null;
+                this.main_users_name = null;
+                this.main_users_email = null;
+                this.main_users_password = null;
+                this.main_users_type = null;
+                this.main_users_id = null;
             }
             
         },

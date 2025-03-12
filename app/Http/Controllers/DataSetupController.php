@@ -64,4 +64,33 @@ class DataSetupController extends Controller
             'deleted_at' => Carbon::now()
         ]);
     }
+
+    public function getMainUsers(){
+        return DB::table('users')->whereNull('deleted_at')->get();
+    }
+
+    public function createMainUsers(Request $request){
+        return DB::table('crew_rank_tbl')
+        ->insert([
+            'code' => strtoupper($request->main_rank_code),
+            'rank_name' => strtoupper($request->main_rank_name),
+            'alias' => strtoupper($request->main_rank_alias),
+        ]);
+    }
+
+    public function saveMainUsers(Request $request){
+        return DB::table('crew_rank_tbl')->where('id',$request->main_rank_id)
+        ->update([
+            'code' => strtoupper($request->main_rank_code),
+            'rank_name' => strtoupper($request->main_rank_name),
+            'alias' => strtoupper($request->main_rank_alias),
+        ]);
+    }
+
+    public function removeMainUsers(Request $request){
+        return DB::table('crew_rank_tbl')->where('id',$request->main_rank_id)
+        ->update([
+            'deleted_at' => Carbon::now()
+        ]);
+    }
 }

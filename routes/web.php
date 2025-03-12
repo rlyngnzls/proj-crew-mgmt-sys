@@ -48,6 +48,11 @@ Route::group(['middleware'=> 'auth'], function(){
     Route::post('/save/setup/ranks/data', [DataSetupController::class, 'saveMainRanks']);
     Route::post('/remove/setup/ranks/data', [DataSetupController::class, 'removeMainRanks']);
 
+    Route::get('/get/setup/users', [DataSetupController::class, 'getMainUsers']);
+    Route::post('/create/setup/users/data', [DataSetupController::class, 'createMainUsers']);
+    Route::post('/save/setup/users/data', [DataSetupController::class, 'saveMainUsers']);
+    Route::post('/remove/setup/users/data', [DataSetupController::class, 'removeMainUsers']);
+
     
 });
 
