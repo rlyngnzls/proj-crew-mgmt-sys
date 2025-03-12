@@ -30,4 +30,9 @@ class HomeController extends Controller
     {
         return view('documents', compact('id'));
     }
+
+    public function maintenance()
+    {
+        return view('maintenance');
+    }
 }

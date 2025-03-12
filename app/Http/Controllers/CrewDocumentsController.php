@@ -53,4 +53,39 @@ class CrewDocumentsController extends Controller
             'deleted_at' => Carbon::now()
         ]);
     }
+
+    public function saveCrewDocument(Request $request){
+        if($request->recent_file == $request->file_name){
+            return DB::table('crew_documents_tbl')->where('id',$request->document_id)
+            ->update([
+                'code' => $request->document_code,
+                'document_no' => $request->document_no,
+                'document_name' => $request->document_name,
+                'issued_date' => $request->issued_date,
+                'expiry_date' => $request->expiry_date,
+                'person_in_charge' => Auth::user()->name,
+            ]);
+        }
+        else{
+            $subfolderPath = $request->crew_id . "/" . $request->document_code;
+            $file_name = $request->document_no . '.' . $request->file_name->getClientOriginalExtension();
+
+            Storage::disk('public')->putFileAs(
+                $subfolderPath, // Use the same subfolder path
+                $request->file_name,
+                $file_name
+            );
+
+            return DB::table('crew_documents_tbl')->where('id',$request->document_id)
+            ->update([
+                'code' => $request->document_code,
+                'document_no' => $request->document_no,
+                'document_name' => $request->document_name,
+                'file_name' => $file_name,
+                'issued_date' => $request->issued_date,
+                'expiry_date' => $request->expiry_date,
+                'person_in_charge' => Auth::user()->name,
+            ]);
+        }
+    }
 }

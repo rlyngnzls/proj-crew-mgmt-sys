@@ -50,6 +50,9 @@ Vue.component('crew-list-component', require('./components/CrewListComponent.vue
 // Crew Documents
 Vue.component('crew-documents-component', require('./components/CrewDocumentsComponent.vue').default);
 
+// Data Setup
+Vue.component('data-setup-component', require('./components/DataSetupComponent.vue').default);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

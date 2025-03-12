@@ -76,34 +76,38 @@
             <div class="container">
                 <div class="row mb-5 mt-3">
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="card border-5 rounded-3 bg-dark-gray">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <span class="text-uppercase fw-bold">List</span>
+                        <a href="/home" style="text-decoration: none;">
+                            <div class="card border-5 rounded-3 bg-dark-gray" >
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <span class="text-uppercase fw-bold">List</span>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <i class="fa-duotone fa-solid fa-arrow-up-right-from-square fa-lg"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 text-end">
-                                        <i class="fa-duotone fa-solid fa-arrow-up-right-from-square fa-lg"></i>
-                                    </div>
+                                    
                                 </div>
-                                
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
-                        <div class="card border-5 rounded-3 bg-dark-gray">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <span class="text-uppercase fw-bold">Maintenance</span>
+                        <a href="/data/setup" style="text-decoration: none;">
+                            <div class="card border-5 rounded-3 bg-dark-gray">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <span class="text-uppercase fw-bold">Maintenance</span>
+                                        </div>
+                                        <div class="col-md-4 text-end">
+                                            <i class="fa-duotone fa-solid fa-gears fa-lg"></i>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 text-end">
-                                        <i class="fa-duotone fa-solid fa-gears fa-lg"></i>
-                                    </div>
+                                    
                                 </div>
-                                
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4">
                         <div class="card border-5 rounded-3 bg-dark-gray">

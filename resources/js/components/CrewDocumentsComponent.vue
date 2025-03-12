@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <b-form-input type="search" placeholder="Search Firstname / Lastname / Rank" aria-label="Search"
+                                <b-form-input type="search" placeholder="Search Code / Document No. / Document Name / Uploaded By" aria-label="Search"
                                 v-model="search"></b-form-input>
                             </div>
                         </div>
@@ -85,7 +85,8 @@
                                     </template>
                                     <template #cell(actions)="row">
                                         <div class="text-center">
-                                            <button class="btn btn-sm btn-primary" @click="viewCrewModal(row.item)"><i class="fa-duotone fa-solid fa-file-magnifying-glass fa-fw"></i></button>
+                                            <button class="btn btn-sm btn-info text-light" @click="viewCrewDocumentModal(row.item)"><i class="fa-duotone fa-solid fa-file-magnifying-glass fa-fw"></i></button>
+                                            <button class="btn btn-sm btn-primary" @click="editDocumentModal(row.item)"><i class="fa-duotone fa-solid fa-pen-to-square fa-fw"></i></button>
                                             <button class="btn btn-sm btn-amaranth" @click="removeCrewDocu(row.item)"><i class="fa-duotone fa-solid fa-trash fa-fw"></i></button>
                                         </div>
                                     </template>
@@ -183,6 +184,69 @@
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="">
                             <label for="document_code" class="form-label">Code</label>
+                            <input type="text" class="form-control" id="document_code" placeholder="" v-model="document_code" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-5 col-lg-5">
+                        <label for="document_name" class="form-label">Document Name</label>
+                        <input type="text" class="form-control" id="document_name" placeholder="" v-model="document_name" readonly>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label for="document_no" class="form-label">Document No.</label>
+                        <input type="text" class="form-control" id="document_no" placeholder="" v-model="document_no" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <label for="document_file" class="form-label">File</label><br>
+                        <a :href="'/storage/' + this.crew_id + '/' + this.document_code + '/' + this.file_name" target="_blank"><button class="w-100 btn btn-primary">{{ this.file_name }}</button></a>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="">
+                            <label for="birthdate" class="form-label">Issued Date</label>
+                            <input type="date" class="form-control" id="birthdate" v-model="issued_date" readonly>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="">
+                            <label for="birthdate" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" id="birthdate" v-model="expiry_date" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12 text-end">
+                        <span class="text-primary fw-bolder fst-italic text-uppercase" v-if="!this.date_updated">
+                            Uploaded By: {{ this.uploaded_by }} - {{ moment(this.date_created).format('LLL') }}
+                        </span>
+                        <span class="text-primary fw-bolder fst-italic text-uppercase" v-else>
+                            Uploaded By: {{ this.uploaded_by }} - {{ moment(this.date_updated).format('LLL') }}
+                        </span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 text-end">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
+                        <!-- <button type="button" class="btn btn-primary" @click="submitCrewDocument()">Submit</button> -->
+                    </div>
+                </div>
+        </b-modal>
+        <!-- End View Document Modal -->
+
+        <!-- Edit Document Modal -->
+        <b-modal v-model="editDocumentModalTrigger" centered size="xl" hide-header hide-header-close no-close-on-backdrop
+            no-close-on-esc hide-footer>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-start align-items-center h-100">
+                        <span class="text-uppercase fw-bolder fs-5">Edit Document Details</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="">
+                            <label for="document_code" class="form-label">Code</label>
                             <select class="form-select" v-model="document_code" @change="setDocuName()" id="document_code">
                                 <option selected value="null" disabled>-- Please select code --</option>
                                 <option v-for="(data, index) in documents_list" :key="index">{{ data.code }}</option>
@@ -202,7 +266,8 @@
                 <div class="row mt-3">
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="document_file" class="form-label">File</label>
-                        <b-form-file v-model="document_file" id="document_file" class="form-control" placeholder="" plain accept="application/pdf"></b-form-file>
+                        <b-form-file v-model="new_file_document" id="document_file" class="form-control" placeholder="" plain accept="application/pdf"></b-form-file>
+                        <small class="text-amaranth fst-italic">Recent File: {{ this.file_name }}</small>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="">
@@ -228,11 +293,11 @@
                 <div class="row">
                     <div class="col-md-12 text-end">
                         <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
-                        <!-- <button type="button" class="btn btn-primary" @click="submitCrewDocument()">Submit</button> -->
+                        <button type="button" class="btn btn-primary" @click="saveCrewDocument()">Save</button>
                     </div>
                 </div>
         </b-modal>
-        <!-- End View Document Modal -->
+        <!-- End Edit Document Modal -->
 
         
 
@@ -274,6 +339,11 @@ import moment from 'moment';
                 expiry_date: null,
                 uploaded_by: null,
                 document_file: null,
+                date_created: null,
+                date_updated: null,
+                file_name:null,
+                new_file_document: null,
+                document_id: null,
                 info: [],
                 items: [],
                 fields: [
@@ -290,8 +360,9 @@ import moment from 'moment';
                 currentPage: 1,
                 loading_table: false,
 
-                viewCrewModalTrigger: false,
+                viewDocumentModalTrigger: false,
                 uploadDocumentModalTrigger: false,
+                editDocumentModalTrigger: false,
                 };
         },
         computed: {
@@ -439,25 +510,81 @@ import moment from 'moment';
                 
             },
 
-            viewCrewModal(data){
-                this.viewCrewModalTrigger = true;
-                this.first_name = data.first_name;
-                this.last_name = data.last_name;
-                this.middle_name = data.middle_name;
-                this.address = data.address;
-                this.email = data.email;
-                this.birthdate = data.birthdate;
-                this.age = data.age;
-                this.rank = data.rank;
-                this.height = data.height;
-                this.weight = data.weight;
-                this.calculateBMI();
-                console.log(data);
+            viewCrewDocumentModal(data){
+                this.viewDocumentModalTrigger = true;
+
+                this.document_code = data.code;
+                this.document_name = data.document_name;
+                this.document_no = data.document_no;
+                this.issued_date = data.issued_date;
+                this.expiry_date = data.expiry_date;
+                this.uploaded_by = data.person_in_charge;
+                this.date_created = data.created_at;
+                this.date_updated = data.updated_at;
+                this.file_name = data.file_name; 
+            },
+
+            editDocumentModal(data){
+                this.editDocumentModalTrigger = true;
+                this.document_code = data.code;
+                this.document_name = data.document_name;
+                this.document_no = data.document_no;
+                this.issued_date = data.issued_date;
+                this.expiry_date = data.expiry_date;
+                this.uploaded_by = data.person_in_charge;
+                this.date_created = data.created_at;
+                this.date_updated = data.updated_at;
+                this.file_name = data.file_name;
+                this.document_id = data.id;
+            },
+
+            saveCrewDocument(){
+                this.$swal.fire({
+                    title: 'Edit Crew Document',
+                    html: "Are you sure you want to edit this document of the selected crew?",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3cba92',
+                    cancelButtonColor: '#dc3545',
+                    confirmButtonText: 'Proceed'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var form_data = new FormData();
+                        if(this.new_file_document){
+                            form_data.append('file_name', this.new_file_document);
+                        }
+                        else{
+                            form_data.append('file_name', this.file_name);
+                        }
+                        
+                        form_data.append('document_code', this.document_code);
+                        form_data.append('document_name', this.document_name);
+                        form_data.append('document_no', this.document_no);
+                        form_data.append('issued_date', this.issued_date);
+                        form_data.append('expiry_date', this.expiry_date);
+                        form_data.append('crew_id', this.crew_id);
+                        form_data.append('document_id', this.document_id);
+                        form_data.append('recent_file', this.file_name);
+
+                        axios.post('/edit/crew/docu/data',form_data)
+                        .then((response)=>{
+                            console.log(response.data)
+                            this.getCrewDocuments();
+                            this.closeModal();
+                            this.Toast.fire({
+                                icon: 'success',
+                                title: 'Crew Document Uploaded!',
+                                html: 'Crew document uploaded successfully.',
+                            });
+                        })
+                    }
+                })
             },
 
             closeModal(){
                 this.uploadDocumentModalTrigger = false;
-                this.viewCrewModalTrigger = false;
+                this.viewDocumentModalTrigger = false;
+                this.editDocumentModalTrigger = false;
 
                 this.document_code = null;
                 this.document_name = null;
@@ -465,6 +592,12 @@ import moment from 'moment';
                 this.issued_date = null;
                 this.expiry_date = null;
                 this.document_file = null;
+                this.uploaded_by = null;
+                this.date_created = null;
+                this.date_updated = null;
+                this.file_name = null;
+                this.document_id = null;
+                this.new_file_document = null;
             },
         },
     }
