@@ -15,7 +15,7 @@ class AddUsernameToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('username', 10)->unique()->after('id'); // Add username
-            $table->string('crew_id', 10)->unique()->after('id'); // Add crew_id
+            $table->string('crew_id', 10)->after('id'); // Add crew_id
             $table->string('user_type', 255)->after('password'); // Add user_type
             $table->softDeletes()->after('updated_at'); // Add deleted_at
         });

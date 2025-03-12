@@ -422,8 +422,123 @@
         </b-modal>
         <!-- End Edit Main Ranks Modal -->
 
-        
+        <!-- Create Main Users Modal -->
+        <b-modal v-model="createMainUsersTrigger" centered hide-header hide-header-close no-close-on-backdrop
+            no-close-on-esc hide-footer>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-start align-items-center h-100">
+                        <span class="text-uppercase fw-bolder fs-5">User Information</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_type" class="form-label">User Type</label>
+                            <select class="form-select" v-model="main_users_type" id="main_users_type">
+                                <option selected value="null" disabled>-- Please select user type --</option>
+                                <option selected value="System Admin">System Admin</option>
+                                <option selected value="Staff">Staff</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="main_users_username" v-model="main_users_username">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="main_users_name" v-model="main_users_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="main_users_email" v-model="main_users_email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="main_users_password" v-model="main_users_password">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 text-end">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary" @click="createMainUsers()">Submit</button>
+                    </div>
+                </div>
+        </b-modal>
+        <!-- End Create Main Users Modal -->
 
+        <!-- Edit Main Users Modal -->
+        <b-modal v-model="editMainUsersTrigger" centered hide-header hide-header-close no-close-on-backdrop
+            no-close-on-esc hide-footer>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12 d-flex justify-content-start align-items-center h-100">
+                        <span class="text-uppercase fw-bolder fs-5">User Information</span>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_type" class="form-label">User Type</label>
+                            <select class="form-select" v-model="main_users_type" id="main_users_type">
+                                <option selected value="null" disabled>-- Please select user type --</option>
+                                <option selected value="System Admin">System Admin</option>
+                                <option selected value="Staff">Staff</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="main_users_username" v-model="main_users_username">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="main_users_name" v-model="main_users_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="">
+                            <label for="main_users_email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="main_users_email" v-model="main_users_email">
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12 text-end">
+                        <button type="button" class="btn btn-secondary" @click="closeModal()">Close</button>
+                        <button type="button" class="btn btn-primary" @click="saveMainUsers()">Save</button>
+                    </div>
+                </div>
+        </b-modal>
+        <!-- End Edit Main Users Modal -->
     </div>
 </template>
 
@@ -676,7 +791,6 @@ import moment from 'moment';
                 this.main_users_username = data.username;
                 this.main_users_name = data.name;
                 this.main_users_email = data.email;
-                this.main_users_password = data.password;
                 this.main_users_type = data.user_type;
                 this.main_users_id = data.id;
             },
@@ -702,14 +816,12 @@ import moment from 'moment';
             },
 
             createMainUsers(){
-                axios.post('/create/setup/user/data', {
-                    main_users_crew_id : this.main_users_crew_id,
+                axios.post('/create/setup/users/data', {
                     main_users_username : this.main_users_username,
                     main_users_name : this.main_users_name,
                     main_users_email : this.main_users_email,
                     main_users_password : this.main_users_password,
                     main_users_type : this.main_users_type,
-                    main_users_id : this.main_users_id,
                 }).then((response) => {
                     this.getMainUsers();
                     this.closeModal();
