@@ -80,13 +80,16 @@ class DataSetupController extends Controller
                 $number = $matches[0];
                 $new_id = 'SA-'.($number+1);
             }
+            else{
+                $new_id = 'SA-1';
+            }
             
             return DB::table('users')->insert([
                 'crew_id' => $new_id,
                 'username' => $request->main_users_username,
                 'name' => $request->main_users_name,
                 'email' => $request->main_users_email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->main_users_password),
                 'user_type' => $request->main_users_type,
                 'created_at' => Carbon::now()
             ]);
@@ -99,13 +102,16 @@ class DataSetupController extends Controller
                 $number = $matches[0];
                 $new_id = 'S-'.($number+1);
             }
+            else{
+                $new_id = 'S-1';
+            }
             
             return DB::table('users')->insert([
                 'crew_id' => $new_id,
                 'username' => $request->main_users_username,
                 'name' => $request->main_users_name,
                 'email' => $request->main_users_email,
-                'password' => Hash::make($request->password),
+                'password' => Hash::make($request->main_users_password),
                 'user_type' => $request->main_users_type,
                 'created_at' => Carbon::now()
             ]);

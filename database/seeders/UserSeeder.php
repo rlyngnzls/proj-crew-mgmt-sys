@@ -16,8 +16,11 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::create([
+            'crew_id' => 'SA-1',
+            'username' => 'test',
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'user_type' => 'System Administrator',
             'password' => Hash::make('password'), // Or any password you prefer
         ]);
     }

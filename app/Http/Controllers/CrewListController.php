@@ -27,7 +27,6 @@ class CrewListController extends Controller
             ->whereNull('crew_profile_tbl.deleted_at')
             ->get();
         }
-        
     }
 
     public function getCrewRanks(){

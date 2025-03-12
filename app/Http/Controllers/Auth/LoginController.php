@@ -63,7 +63,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:10',
+            'username' => 'required|string|max:10|regex:/^[a-zA-Z0-9]+$/',
             'password' => 'required|string|max:20|regex:/^[a-zA-Z0-9]+$/', // No special characters
         ]);
 

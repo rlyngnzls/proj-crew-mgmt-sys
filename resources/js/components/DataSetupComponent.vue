@@ -447,7 +447,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="">
                             <label for="main_users_username" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="main_users_username" v-model="main_users_username">
+                            <input type="text" class="form-control" id="main_users_username" v-model="main_users_username" maxlength="10">
                         </div>
                     </div>
                 </div>
@@ -471,7 +471,7 @@
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="">
                             <label for="main_users_password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="main_users_password" v-model="main_users_password">
+                            <input type="password" class="form-control" id="main_users_password" v-model="main_users_password" maxlength="20">
                         </div>
                     </div>
                 </div>
@@ -816,21 +816,79 @@ import moment from 'moment';
             },
 
             createMainUsers(){
-                axios.post('/create/setup/users/data', {
-                    main_users_username : this.main_users_username,
-                    main_users_name : this.main_users_name,
-                    main_users_email : this.main_users_email,
-                    main_users_password : this.main_users_password,
-                    main_users_type : this.main_users_type,
-                }).then((response) => {
-                    this.getMainUsers();
-                    this.closeModal();
+                if(!this.main_users_username){
                     this.Toast.fire({
-                        icon: 'success',
-                        title: 'Users Created!',
-                        html: 'Users details created successfully.',
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Username is required!',
                     });
-                })
+                }
+                else if (this.main_users_username.length > 10) {
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Username cannot exceed 10 characters!',
+                    });
+                }
+                else if (!/^[a-zA-Z]*$/.test(this.main_users_username)) {
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Username can only contain letters!',
+                    });
+                }
+                else if(!this.main_users_name){
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Name is required!',
+                    });
+                }
+                else if(!this.main_users_email){
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Email is required!',
+                    });
+                }
+                else if (this.main_users_username.length > 20) {
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Password cannot exceed 20 characters!',
+                    });
+                }
+                else if (!/^[a-zA-Z]*$/.test(this.main_users_password)) {
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'Password can only contain letters!',
+                    });
+                }
+                else if(!this.main_users_type){
+                    this.Toast.fire({
+                        icon: 'error',
+                        title: 'Input Error!',
+                        html: 'User Type is required!',
+                    });
+                }
+                else{
+                    axios.post('/create/setup/users/data', {
+                        main_users_username : this.main_users_username,
+                        main_users_name : this.main_users_name,
+                        main_users_email : this.main_users_email,
+                        main_users_password : this.main_users_password,
+                        main_users_type : this.main_users_type,
+                    }).then((response) => {
+                        this.getMainUsers();
+                        this.closeModal();
+                        this.Toast.fire({
+                            icon: 'success',
+                            title: 'Users Created!',
+                            html: 'Users details created successfully.',
+                        });
+                    })
+                }
             },
 
             removeMainUsers(data){
